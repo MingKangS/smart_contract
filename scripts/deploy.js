@@ -4,6 +4,9 @@ const main = async () => {
 
   await postContract.deployed();
 
+  postContract.posts = [];
+
+  console.log(postContract.posts);
   console.log("Transactions address: ", postContract.address);
 };
 

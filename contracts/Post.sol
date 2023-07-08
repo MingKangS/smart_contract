@@ -124,7 +124,15 @@ contract Post {
         return detailedPosts;
     }
 
-    function upVotePost() public returns (uint256) {}
+    function upvotePost(uint256 postId) public returns (uint256) {
+        posts[postId].upvotes.push(msg.sender);
+        return posts[postId].upvotes.length;
+    }
+
+    function downvotePost(uint256 postId) public returns (uint256) {
+        posts[postId].downvotes.push(msg.sender);
+        return posts[postId].downvotes.length;
+    }
 
     function editAccount(
         AccountStruct memory newAccount
@@ -137,5 +145,11 @@ contract Post {
         address accountAddress
     ) public view returns (AccountStruct memory) {
         return accounts[accountAddress];
+    }
+
+    function addComment(uint256 postId, string memory comment) public {
+        comments[postId].push(
+            CommentStruct(comment, msg.sender, block.timestamp)
+        );
     }
 }

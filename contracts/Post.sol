@@ -20,6 +20,7 @@ contract Post {
 
     struct DisplayPostStruct {
         uint256 id;
+        address authorId;
         AccountStruct author;
         string postContent;
         uint256 timestamp;
@@ -110,6 +111,7 @@ contract Post {
             PostStruct memory post = posts[i];
             detailedPosts[i] = DisplayPostStruct(
                 i,
+                post.author,
                 accounts[post.author],
                 post.postContent,
                 post.timestamp,
@@ -132,6 +134,11 @@ contract Post {
     function downvotePost(uint256 postId) public returns (uint256) {
         posts[postId].downvotes.push(msg.sender);
         return posts[postId].downvotes.length;
+    }
+
+    function reportPost(uint256 postId) public returns (uint256) {
+        posts[postId].reports.push(msg.sender);
+        return posts[postId].reports.length;
     }
 
     function editAccount(

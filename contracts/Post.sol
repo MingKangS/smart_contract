@@ -38,7 +38,7 @@ contract Post {
     }
 
     mapping(uint256 => PostStruct) posts;
-    uint256 postCount;
+    uint256 postCount = 0;
 
     mapping(uint256 => CommentStruct[]) comments;
 
@@ -107,9 +107,9 @@ contract Post {
             postCount
         );
 
-        for (uint256 i = 0; i < postCount; i++) {
+        for (uint256 i = 1; i <= postCount; i++) {
             PostStruct memory post = posts[i];
-            detailedPosts[i] = DisplayPostStruct(
+            detailedPosts[i - 1] = DisplayPostStruct(
                 i,
                 post.author,
                 accounts[post.author],
